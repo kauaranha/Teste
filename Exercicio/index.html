@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    
+</head>
+<body class="themed">
+    <div class="main">
+    <div class="form-container">
+        <div class="form-header">
+            <h3>Cadastro do Usuario!!</h3>
+        </div>
+        <!--Formulario de Cadastro do Usuario-->
+        <form action="IncluirUsuario.php" onSubmit="return valida_campos();" method="POST">
+            <div>
+              <input name="usuario" id="usuario" placeholder="Username" class="inputs required" oninput="nameValidate()">
+              <span class="span-required" >Nome deve ter no minimo 3 caracters</span>
+            </div>
+            <br>
+  
+            <div>
+              <input id="email" placeholder="Email" class="inputs required" oninput="emailValidate()">
+              <span class="span-required">Digite um Email Valido</span>
+            </div>
+            <br>
+            <div>
+              <input name="senha" id="senha" placeholder="Senha" type="password" class="inputs required" oninput="mainPasswordValidate()">
+              <span class="span-required">Digite uma senha com no mínimo 8 caracters</span>
+            </div>
+            <br>
+            <div>
+              <input id="senha_cofirma" placeholder="Confirme sua Senha" type="password" class="inputs required" oninput="ComparePassword()">
+              <span class="span-required">As senhas devem ser identicas!</span>
+            </div>
+            <br>
+            <button type="submit" id="submit" name="submit">Concluir o Cadastro</button>
+        </form>
+        <a href="login.html" type="submit" value="Submit">Já possui cadastro? Clique aqui!</button>
+    
+        </div>
+
+        <!--Animação em arquivo JSON do site Lottie Files-->
+        <script src ="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> <lottie-player
+         src ="https://assets10.lottiefiles.com/private_files/lf30_obidsi0t.json" background = " transparent " speed = " 1 " style = " width : 600px ; height : 500px ; " loop  autoplay></lottie-player > 
+    </div>
+</body>
+
+
+
+
+
+
+<!--Validação do Usuario com JavaScript Puro-->
+
+<script>
+    const form = document.getElementById('form');
+    const campos = document.querySelectorAll('.required');
+    const spans = document.querySelectorAll('.span-required');
+    const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  
+    function setError(index){
+      campos[index].style.border = '2px solid #e63636';
+      spans[index].style.display = 'block';
+  
+    }
+
+    function valida_campos(){
+    if(usuario.value == "" && senha.value == "")
+    {
+      alert("Por favor Insira Usuario e senha para Cadastro!!");
+      usuario.focus();
+      senha.focus();
+      return false;
+    
+    }
+    else
+    {
+      alert("Formulario Validado com Sucesso!!")
+      return true;
+    }
+
+  }
+  
+    function removeError(index){
+      campos[index].style.border = '';
+      spans[index].style.display = 'none';
+    }
+  
+    function nameValidate(){
+      if(campos[0].value.length < 3)
+      {
+        setError(0);
+      }
+      else{
+        removeError(0);
+      }
+   }
+   
+   function emailValidate(){
+    if(!emailRegex.test(campos[1].value))
+    {
+      setError(1);
+    }
+    else{
+      removeError(1);
+    }
+   }
+  
+   function mainPasswordValidate(){
+    if(campos[2].value.length < 8)
+    {
+       setError(2);
+    }
+    else{
+      removeError(2);
+      ComparePassword();
+    }
+   }
+  
+   function ComparePassword(){
+    if(campos[2].value == campos[3].value && campos[3].value.length >= 8)
+    {
+      removeError(3);
+    }
+    else {
+      setError(3);
+    }
+   }
+    </script>
+</html>
